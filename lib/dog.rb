@@ -43,12 +43,6 @@ class Dog
     return self
   end
 
-  def self.create(row)
-    dog = self.new(name:row[:name], breed:row[:breed])
-    dog.save
-    dog
-  end
-
   def self.find_by_id(id)
     sql = <<-SQL
       SELECT *
@@ -96,5 +90,13 @@ class Dog
     SQL
 
     DB[:conn].execute(sql, self.name, self.breed, self.id)
+  end
+
+  private
+
+  def self.create(row)
+    dog = self.new(name:row[:name], breed:row[:breed])
+    dog.save
+    dog
   end
 end
